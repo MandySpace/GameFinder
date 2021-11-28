@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import Home from "./pages/Home";
+import GlobalStyles from "./components/GobalStyles";
+import { Switch, Route } from "react-router-dom";
+import Nav from "./components/Nav";
+import SearchedGames from "./components/SearchedGames";
+import LatestGames from "./components/LatestGames";
+import UpcomingGames from "./components/UpcomingGames";
+import PopularGames from "./components/PopularGames";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyles />
+      <Nav />
+      <Switch>
+        <Route path={["/", "/game/:id"]} exact>
+          <Home />
+        </Route>
+        <Route path={["/results", "/results/game/:id"]}>
+          <SearchedGames />
+        </Route>
+        <Route path={["/latest", "/latest/game/:id"]}>
+          <LatestGames />
+        </Route>
+        <Route path={["/upcoming", "/upcoming/game/:id"]}>
+          <UpcomingGames />
+        </Route>
+        <Route path={["/popular", "/popular/game/:id"]}>
+          <PopularGames />
+        </Route>
+      </Switch>
     </div>
   );
 }
