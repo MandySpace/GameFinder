@@ -30,10 +30,19 @@ function Game({ name, img, genres, id, metacritic, platforms }) {
             ></img>
           ))}
         </div> */}
+
         <img src={smallImage(img, 640)} alt="" />
-        <h3>{name}</h3>
-        <p>{genres.map((genre) => genre.name).join(", ")}</p>
-        <p>{metacritic}</p>
+        <div className="flex">
+          <div className="left">
+            <h3>{name}</h3>
+            <p>{genres.map((genre) => genre.name).join(", ")}</p>
+          </div>
+          {metacritic && (
+            <div className="right">
+              <p className="metacritic">{metacritic}</p>
+            </div>
+          )}
+        </div>
       </Link>
     </StyledGame>
   );
@@ -41,6 +50,7 @@ function Game({ name, img, genres, id, metacritic, platforms }) {
 
 const StyledGame = styled(motion.div)`
   cursor: pointer;
+  position: relative;
 
   img {
     flex: 300px;
@@ -52,9 +62,21 @@ const StyledGame = styled(motion.div)`
     box-shadow: 0 1px 8px #00000026;
   }
 
-  h3,
-  p {
-    width: 250px;
+  .flex {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .metacritic {
+    align-self: flex-start;
+    position: absolute;
+    top: 80%;
+    right: 0;
+    color: var(--color-primary);
+    font-weight: 500;
+    padding: 0 0.1rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 3px;
   }
 `;
 
