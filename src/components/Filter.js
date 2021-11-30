@@ -16,10 +16,6 @@ function Filter({ query, sort, action }) {
     setFilteredPlatforms([]);
     setFilteredGenres([]);
     setFilteredMetacritic([]);
-    console.log(filteredPlatforms);
-    console.log(filteredGenres);
-    console.log(filteredMetacritic);
-
     dispatch(action());
   };
 
@@ -72,8 +68,9 @@ const StyledFilter = styled.div`
     margin-top: 0.5rem;
     margin-right: 0.5rem;
     padding: 0.2rem 0.5rem;
-    background-color: #fff;
-    border: 1px solid #000;
+    color: var(--color-light-font);
+    background-color: var(--color-light-body);
+    border: 1px solid #8b8b8b;
     border-radius: 5px;
     font-family: inherit;
     cursor: pointer;

@@ -2,14 +2,22 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 :root{
-    --color-light-font: #202020;
+    /* --color-light-font: #202020;
 
     --color-light-body: #fff;
 
     --color-primary: #186ED7;
 
-    --color-primary-dark: #13488a;
-}
+    --color-primary-dark: #00439C; */
+
+    --color-light-font: #fff;
+
+    --color-light-body: #202020;
+
+    --color-primary: #186ED7;
+
+    --color-primary-dark: #00439C;
+} 
 
 * {
     margin: 0;

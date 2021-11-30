@@ -55,13 +55,16 @@ export const SEARCH_GAME_URL = (
   sortBy,
   platforms,
   genres,
-  metacritic
+  metacritic,
+  parent_platforms
 ) =>
   `${BASE_URL}${GAMES}${API_KEY}&search=${searchQuery}&page=${page}&search_exact=true${
     platforms !== "" ? `&platforms=${platforms}` : ""
   }${genres !== "" ? `&genres=${genres}` : ""}${
     sortBy !== "" ? `&ordering=${sortBy}` : ""
-  }${metacritic !== "" ? `&metacritic=${metacritic}` : ""}`;
+  }${metacritic !== "" ? `&metacritic=${metacritic}` : ""}${
+    parent_platforms !== "" ? `&parent_platforms=${parent_platforms}` : ""
+  }`;
 
 export const ALL_LATEST_GAMES = (
   searchQuery,

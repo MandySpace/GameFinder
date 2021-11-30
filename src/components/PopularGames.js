@@ -9,13 +9,14 @@ import Sort from "./Sort";
 import Pagination from "./Pagination";
 import { popularGames } from "../actions/popularAction";
 import Filter from "./Filter";
+import Spinner from "./Spinner";
 
 function PopularGames() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [apiSortParam, setApiSortParam] = useState("");
 
-  const { popular, query } = useSelector((store) => store.popular);
+  const { popular, query, isLoading } = useSelector((store) => store.popular);
 
   const pageCount = 20;
   const noOfPages = Math.ceil(popular.count / pageCount);
@@ -38,23 +39,29 @@ function PopularGames() {
       </Sorting>
       <Flex>
         <Filter query={query} sort={apiSortParam} action={popularGames} />
-        <Container>
-          {popular.results?.map(
-            (game) =>
-              game.name &&
-              game.id &&
-              game.background_image &&
-              game.genres && (
-                <Game
-                  name={game.name}
-                  img={game.background_image}
-                  genres={game.genres}
-                  key={game.id}
-                  id={game.id}
-                />
-              )
-          )}
-        </Container>
+
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Container>
+            {popular.results?.map(
+              (game) =>
+                game.name &&
+                game.id &&
+                game.background_image &&
+                game.genres && (
+                  <Game
+                    name={game.name}
+                    img={game.background_image}
+                    genres={game.genres}
+                    key={game.id}
+                    id={game.id}
+                    metacritic={game.metacritic}
+                  />
+                )
+            )}
+          </Container>
+        )}
       </Flex>
 
       <Pagination
@@ -90,15 +97,18 @@ const Flex = styled.div`
 `;
 
 const Container = styled(motion.div)`
-  width: 70%;
-  max-width: 120rem;
-  margin: 0 auto;
+  width: 100%;
   padding: 2rem 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  row-gap: 2rem;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
+  row-gap: 1rem;
   column-gap: 1rem;
-  justify-content: center;
+  justify-items: center;
+
+  img {
+    width: 100%;
+  }
 `;
 
 export default PopularGames;

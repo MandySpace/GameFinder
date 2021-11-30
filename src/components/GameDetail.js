@@ -16,6 +16,7 @@ import {
 } from "../util";
 import metacritic from "../img/metacritic.svg";
 import { useEffect, useState, useRef } from "react";
+import Game from "./Game";
 
 let i = 0;
 
@@ -27,7 +28,7 @@ function GameDetail() {
   const leftArrowRef = useRef(null);
   const containerRef = useRef(null);
 
-  const { detail, screenshots, isLoading } = useSelector(
+  const { detail, screenshots, series, isLoading } = useSelector(
     (store) => store.detail
   );
 
@@ -141,30 +142,73 @@ function GameDetail() {
           </RatingContainer>
 
           <Table>
-            <div>
-              <p>Platform:</p>
-              <p>Release:</p>
-              <p>Publisher:</p>
-              <p>Genres:</p>
-              <p>Website:</p>
-            </div>
-            <div>
-              <p>
-                {detail.parent_platforms
-                  ?.map((platform) => platform.platform.name)
-                  .join(", ")}
-              </p>
-              <p>{reverseDate(detail.released)}</p>
-              <p>
-                {detail.publishers
-                  .map((publisher) => publisher.name)
-                  .join(", ")}
-              </p>
-              <p>{detail.genres?.map((genre) => genre.name).join(", ")}</p>
-              <a href={detail.website} target="_blank" rel="noreferrer">
-                {detail.website}
-              </a>
-            </div>
+            <table>
+              <tr>
+                <td>Platform:</td>
+                <td>
+                  {detail.parent_platforms
+                    ?.map((platform) => platform.platform.name)
+                    .join(", ")}
+                </td>
+              </tr>
+              <tr>
+                <td>Release:</td>
+                <td>{reverseDate(detail.released)}</td>
+              </tr>
+              <tr>
+                <td>Publisher:</td>
+                <td>
+                  {detail.publishers
+                    .map((publisher) => publisher.name)
+                    .join(", ")}
+                </td>
+              </tr>
+              <tr>
+                <td>Genres:</td>
+                <td>{detail.genres?.map((genre) => genre.name).join(", ")}</td>
+              </tr>
+              <tr>
+                <td>Website:</td>
+                <td>
+                  <a href={detail.website} target="_blank" rel="noreferrer">
+                    {detail.website}
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+            <table>
+              <tr>
+                <td>Developers:</td>
+                <td>
+                  {detail.developers
+                    ?.map((developer) => developer.name)
+                    .join(", ")}
+                </td>
+              </tr>
+              <tr>
+                <td>Tags:</td>
+                <td>
+                  {detail.tags
+                    .map((tag) => tag.name)
+                    .slice(0, 4)
+                    .join(", ")}
+                </td>
+              </tr>
+
+              <tr>
+                <td>Metacritic:</td>
+                <td>
+                  <a
+                    href={detail.metacritic_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {detail.metacritic_url}
+                  </a>
+                </td>
+              </tr>
+            </table>
           </Table>
 
           <Description>
@@ -209,6 +253,30 @@ function GameDetail() {
               onClick={carousel}
             />
           </Gallery>
+
+          {series.length !== 0 && (
+            <>
+              <h4>Other Games in the Series</h4>
+              <Series>
+                {series?.map(
+                  (game) =>
+                    game.name &&
+                    game.id &&
+                    game.background_image &&
+                    game.genres && (
+                      <Game
+                        name={game.name}
+                        img={game.background_image}
+                        genres={game.genres}
+                        key={game.id}
+                        id={game.id}
+                        metacritic={game.metacritic}
+                      />
+                    )
+                )}
+              </Series>
+            </>
+          )}
 
           {detail.stores[0] && <h4>Available on</h4>}
           <Stores>
@@ -260,22 +328,22 @@ const ModalContainer = styled(motion.div)`
 `;
 
 const Detail = styled(motion.div)`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 10%;
   width: 80%;
-  height: max-content;
-  background: white;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--color-light-body);
   padding-bottom: 5rem;
 
-  color: black;
+  color: var(--color-light-font);
 
   .svg {
     position: fixed;
-    top: 2%;
-    right: 12%;
+    top: 0%;
+    right: 0%;
     cursor: pointer;
-    background-color: #ffffff1f;
     z-index: 2000;
 
     &:hover {
@@ -286,10 +354,11 @@ const Detail = styled(motion.div)`
   h4 {
     width: max-content;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 300;
-    margin: 0 auto;
-    margin-bottom: 4rem;
+    margin: 5rem auto;
+    margin-top: 10rem;
+    border-radius: 5px;
     background-color: var(--color-primary);
     color: #ffffff;
     padding: 0.3rem 3rem;
@@ -321,8 +390,8 @@ const RatingContainer = styled.div`
   display: flex;
   margin-left: auto;
   width: max-content;
-  align-items: flex-end;
-  gap: 1rem;
+  align-items: flex-start;
+  gap: 2rem;
   padding: 1rem;
 
   .ratings {
@@ -351,12 +420,13 @@ const RatingContainer = styled.div`
   }
 
   .metacritic {
+    margin-right: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     img {
-      width: 50px;
+      width: 35px;
       object-fit: cover;
     }
 
@@ -405,13 +475,15 @@ const Description = styled(motion.div)`
   display: flex;
   flex-direction: column;
   margin: 5rem auto;
-  margin-top: 10rem;
-  padding: 3rem;
   width: 70%;
   max-width: 80rem;
   line-height: 1.6;
-  background-color: #292929;
-  color: #fff;
+  color: var(--color-light-font);
+
+  p {
+    margin: 0 auto;
+    column-count: 2;
+  }
 
   img {
     width: 100%;
@@ -421,32 +493,70 @@ const Description = styled(motion.div)`
   }
 `;
 
+const Series = styled.div`
+  width: 70%;
+  max-width: 80rem;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 250px));
+  row-gap: 1rem;
+  column-gap: 1rem;
+  justify-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+  }
+`;
+
 const Table = styled.div`
   display: flex;
-  width: max-content;
+  justify-content: center;
   margin: 10rem auto;
-  gap: 5rem;
   font-weight: 400;
-  p,
-  a {
+  td {
     font-size: 1.2rem;
+    padding: 0 1rem;
+    max-width: 30ch;
+  }
+
+  td a {
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 `;
 
 const Stores = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  width: 70%;
+  width: max-content;
   max-width: 50em;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
 
   a {
-    flex: 1;
+    background-color: #fff;
+    height: 200px;
+    box-shadow: 0 3px 10px #00000026;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-radius: 6px;
+    will-change: transform;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.03);
+    }
   }
 
   img {
-    width: 100%;
+    width: 300px;
     object-fit: cover;
   }
 `;
@@ -504,12 +614,12 @@ const Gallery = styled(motion.div)`
   .container {
     display: flex;
     overflow-x: hidden;
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
 
     img {
       width: 33.33%;
       cursor: pointer;
-      border: 4px solid #fff;
+      border: 4px solid var(--color-light-body);
       opacity: 0.9;
       will-change: opacity;
       transition: opacity 0.1s;

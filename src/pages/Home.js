@@ -5,13 +5,15 @@ import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-
 import Carousel from "../components/Carousel";
 import { useLocation } from "react-router-dom";
 import { latestGames } from "../actions/latestAction";
 import { popularGames } from "../actions/popularAction";
 import { upcomingGames } from "../actions/upcomingAction";
 import { Link } from "react-router-dom";
+import PlatformCards from "../components/PlatformCards";
+import Spinner from "../components/Spinner";
+import Footer from "../components/Footer";
 
 function Home() {
   const location = useLocation();
@@ -67,7 +69,9 @@ function Home() {
     };
   }, []);
 
-  const { popular, latest, upcoming } = useSelector((state) => state.games);
+  const { popular, latest, upcoming, isLoading } = useSelector(
+    (state) => state.games
+  );
 
   const gamesContainer = [latest, popular, upcoming];
   const headingContainer = ["Latest", "Popular", "Upcoming"];
@@ -76,69 +80,91 @@ function Home() {
 
   return (
     <>
-      <Header>
-        <div className="slider" ref={headerRef}>
-          <div className="slides first" ref={firstSlideRef}>
-            <img src={latest[0]?.background_image} alt="Game Cover Header" />
-          </div>
-          <div className="slides">
-            <img src={upcoming[0]?.background_image} alt="Game Cover Header" />
-          </div>
-          <div className="slides">
-            <img src={latest[1]?.background_image} alt="Game Cover Header" />
-          </div>
-          <div className="slides">
-            <img src={latest[2]?.background_image} alt="Game Cover Header" />
-          </div>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Header>
+            <div className="slider" ref={headerRef}>
+              <div className="slides first" ref={firstSlideRef}>
+                <img
+                  src={latest[0]?.background_image}
+                  alt="Game Cover Header"
+                />
+              </div>
+              <div className="slides">
+                <img
+                  src={upcoming[0]?.background_image}
+                  alt="Game Cover Header"
+                />
+              </div>
+              <div className="slides">
+                <img
+                  src={latest[1]?.background_image}
+                  alt="Game Cover Header"
+                />
+              </div>
+              <div className="slides">
+                <img
+                  src={latest[2]?.background_image}
+                  alt="Game Cover Header"
+                />
+              </div>
 
-          <div className="slides">
-            <img src={popular[0]?.background_image} alt="Game Cover Header" />
-          </div>
-        </div>
-      </Header>
-      <GameList>
-        {gamesContainer.map((games, i) => (
-          <MainContiner key={i}>
-            <div className="header">
-              <h2>{headingContainer[i]} Games</h2>
-              <Link to={`/${LinkContainer[i]}`}>
-                <button onClick={() => dispatch(actionContainer[i]())}>
-                  View All
-                </button>
-              </Link>
+              <div className="slides">
+                <img
+                  src={popular[0]?.background_image}
+                  alt="Game Cover Header"
+                />
+              </div>
             </div>
+          </Header>
+          <GameList>
+            {gamesContainer.map((games, i) => (
+              <MainContiner key={i}>
+                <div className="header">
+                  <h2>{headingContainer[i]} Games</h2>
+                  <Link to={`/${LinkContainer[i]}`}>
+                    <button onClick={() => dispatch(actionContainer[i]())}>
+                      View All
+                    </button>
+                  </Link>
+                </div>
 
-            <Carousel
-              GamesParentRef={GamesParentRef}
-              GamesRef={refContainer[i]}
-              i={counterContainer[i]}
-            />
-            <GamesContainer ref={refContainer[i]}>
-              <Games ref={GamesParentRef}>
-                {games &&
-                  games.map(
-                    (game) =>
-                      game.name &&
-                      game.id &&
-                      game.background_image &&
-                      game.genres && (
-                        <Game
-                          name={game.name}
-                          img={game.background_image}
-                          genres={game.genres}
-                          key={game.id}
-                          id={game.id}
-                          metacritic={game.metacritic}
-                          platforms={game.parent_platforms}
-                        />
-                      )
-                  )}
-              </Games>
-            </GamesContainer>
-          </MainContiner>
-        ))}
-        {showDetail && <GameDetail />}
-      </GameList>
+                <Carousel
+                  GamesParentRef={GamesParentRef}
+                  GamesRef={refContainer[i]}
+                  i={counterContainer[i]}
+                />
+                <GamesContainer ref={refContainer[i]}>
+                  <Games ref={GamesParentRef}>
+                    {games &&
+                      games.map(
+                        (game) =>
+                          game.name &&
+                          game.id &&
+                          game.background_image &&
+                          game.genres && (
+                            <Game
+                              name={game.name}
+                              img={game.background_image}
+                              genres={game.genres}
+                              key={game.id}
+                              id={game.id}
+                              metacritic={game.metacritic}
+                            />
+                          )
+                      )}
+                  </Games>
+                </GamesContainer>
+              </MainContiner>
+            ))}
+            <PlatformCards />
+            {showDetail && <GameDetail />}
+          </GameList>
+          <Footer />
+        </>
+      )}
     </>
   );
 }
@@ -182,10 +208,10 @@ const GameList = styled(motion.div)`
       font-size: 1rem;
       font-weight: 700;
       color: var(--color-primary);
-      background-color: #fff;
+      background-color: var(--color-light-body);
       border: none;
       cursor: pointer;
-      border-bottom: 2px solid #fff;
+      border-bottom: 2px solid var(--color-light-body);
       transition: all 0.1s;
 
       &:hover {

@@ -153,8 +153,9 @@ const StyledNav = styled.nav`
   height: 65px;
   display: flex;
   justify-content: space-between;
+  color: var(--color-light-font);
   padding: 0rem 1rem;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc9b;
 
   ul {
     display: flex;
@@ -184,8 +185,8 @@ const StyledNav = styled.nav`
     border: 1px solid #cccccc;
     border-radius: 5px;
     overflow: hidden;
-    backdrop-filter: blur(8px);
-    background-color: #ffffffb9;
+    backdrop-filter: blur(8px) brightness(0.2);
+    background-color: var(--color-light-body);
     z-index: 100;
   }
 

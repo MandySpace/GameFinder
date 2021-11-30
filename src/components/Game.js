@@ -4,9 +4,9 @@ import { detail } from "../actions/detailAction";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { smallImage, platformNameToSvg } from "../util";
+import { smallImage } from "../util";
 
-function Game({ name, img, genres, id, metacritic, platforms }) {
+function Game({ name, img, genres, id, metacritic }) {
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -19,18 +19,17 @@ function Game({ name, img, genres, id, metacritic, platforms }) {
   return (
     <StyledGame onClick={loadDetailHandler}>
       <Link
-        to={`${location.pathname === "/" ? "" : location.pathname}/game/${id}`}
+        // to={`${location.pathname === "/" ? "" : location.pathname}/game/${id}`}
+        to={`${
+          location.pathname === "/"
+            ? ""
+            : location.pathname.split("/")[2] === "game"
+            ? `/${location.pathname.split("/")[1]}`
+            : location.pathname.split("/")[1] === "game"
+            ? ""
+            : location.pathname
+        }/game/${id}`}
       >
-        {/* <div>
-          {platforms?.map((data) => (
-            <img
-              key={data.platform.id}
-              src={platformNameToSvg(data.platform.name)}
-              alt="platforms"
-            ></img>
-          ))}
-        </div> */}
-
         <img src={smallImage(img, 640)} alt="" />
         <div className="flex">
           <div className="left">
@@ -50,10 +49,9 @@ function Game({ name, img, genres, id, metacritic, platforms }) {
 
 const StyledGame = styled(motion.div)`
   cursor: pointer;
-  position: relative;
 
   img {
-    flex: 300px;
+    /* flex: 300px; */
     width: 250px;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -63,15 +61,14 @@ const StyledGame = styled(motion.div)`
   }
 
   .flex {
+    width: 100%;
     display: flex;
-    gap: 2rem;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
   }
 
   .metacritic {
-    align-self: flex-start;
-    position: absolute;
-    top: 80%;
-    right: 0;
     color: var(--color-primary);
     font-weight: 500;
     padding: 0 0.1rem;

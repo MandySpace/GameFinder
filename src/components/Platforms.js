@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { PLATFORMS_URL } from "../api";
 import { useDispatch } from "react-redux";
-import { useRef } from "react";
 
 function Platforms({
   filteredPlatforms,
@@ -15,8 +14,6 @@ function Platforms({
   sort,
 }) {
   const [platforms, setPlatforms] = useState([]);
-
-  const inputRef = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -42,6 +39,7 @@ function Platforms({
     dispatch(
       action(query, 1, sort, platformQuery, genreQuery, metacriticQuery)
     );
+
     setFilteredPlatforms(arr);
   };
 
@@ -55,7 +53,7 @@ function Platforms({
             id={platform.name}
             value={platform.id}
             onChange={changeHandler}
-            ref={inputRef}
+            checked={platform.checked}
           />
           <label htmlFor={platform.name}>{platform.name}</label>
         </Checkbox>

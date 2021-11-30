@@ -13,6 +13,7 @@ export const upcomingGames =
     b = 1
   ) =>
   async (dispatch) => {
+    dispatch({ type: "LOADING_UPCOMING_GAMES" });
     const upcomingData = await axios.get(
       ALL_UPCOMING_GAMES(
         searchParam,

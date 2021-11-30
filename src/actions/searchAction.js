@@ -8,11 +8,21 @@ export const searchGames =
     sortBy = "",
     platforms = "",
     genres = "",
-    metacritic = ""
+    metacritic = "",
+    parent_platforms = ""
   ) =>
   async (dispatch) => {
+    dispatch({ type: "LOADING_SEARCH_GAMES" });
     const searchData = await axios.get(
-      SEARCH_GAME_URL(searchParam, page, sortBy, platforms, genres, metacritic)
+      SEARCH_GAME_URL(
+        searchParam,
+        page,
+        sortBy,
+        platforms,
+        genres,
+        metacritic,
+        parent_platforms
+      )
     );
 
     dispatch({

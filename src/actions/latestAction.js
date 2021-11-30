@@ -13,6 +13,9 @@ export const latestGames =
     b = 2
   ) =>
   async (dispatch) => {
+    dispatch({
+      type: "LOADING_LATEST_GAMES",
+    });
     const latestData = await axios.get(
       ALL_LATEST_GAMES(
         searchParam,

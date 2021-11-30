@@ -9,13 +9,14 @@ import Sort from "./Sort";
 import Pagination from "./Pagination";
 import { searchGames } from "../actions/searchAction";
 import Filter from "./Filter";
+import Spinner from "./Spinner";
 
 function SearchedGames() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [apiSortParam, setApiSortParam] = useState("");
 
-  const { search, query } = useSelector((store) => store.search);
+  const { search, query, isLoading } = useSelector((store) => store.search);
 
   const pageCount = 20;
   const noOfPages = Math.ceil(search.count / pageCount);
@@ -39,23 +40,28 @@ function SearchedGames() {
 
       <Flex>
         <Filter query={query} sort={apiSortParam} action={searchGames} />
-        <Container>
-          {search.results?.map(
-            (game) =>
-              game.name &&
-              game.id &&
-              game.background_image &&
-              game.genres && (
-                <Game
-                  name={game.name}
-                  img={game.background_image}
-                  genres={game.genres}
-                  key={game.id}
-                  id={game.id}
-                />
-              )
-          )}
-        </Container>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Container>
+            {search.results?.map(
+              (game) =>
+                game.name &&
+                game.id &&
+                game.background_image &&
+                game.genres && (
+                  <Game
+                    name={game.name}
+                    img={game.background_image}
+                    genres={game.genres}
+                    key={game.id}
+                    id={game.id}
+                    metacritic={game.metacritic}
+                  />
+                )
+            )}
+          </Container>
+        )}
       </Flex>
 
       <Pagination
@@ -95,10 +101,14 @@ const Container = styled(motion.div)`
   padding: 2rem 0;
   display: grid;
   margin: 0 auto;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
   row-gap: 1rem;
-  column-gap: 0.5rem;
+  column-gap: 1rem;
   justify-items: center;
+
+  img {
+    width: 100%;
+  }
 `;
 
 export default SearchedGames;

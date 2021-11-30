@@ -159,7 +159,9 @@ const StyledSort = styled.div`
   position: relative;
   button {
     font-size: 1rem;
-    background-color: #fff;
+    color: var(--color-light-font);
+    background-color: var(--color-light-body);
+    border: 2px solid #8b8b8b;
     border-radius: 5px;
     padding: 0.5rem 2rem;
     cursor: pointer;
@@ -173,6 +175,8 @@ const StyledSort = styled.div`
   }
 
   form {
+    color: var(--color-light-font);
+    background-color: var(--color-light-body);
     position: absolute;
     top: -10%;
     left: -10%;
@@ -180,7 +184,6 @@ const StyledSort = styled.div`
     flex-direction: column;
     width: max-content;
     font-size: 1rem;
-    background: #fff;
     border: 1px solid #cccccc;
     border-radius: 10px;
     overflow: hidden;
@@ -195,6 +198,7 @@ const StyledSort = styled.div`
     }
 
     label:hover {
+      color: #202020;
       background-color: #cccccc;
     }
   }

@@ -15,6 +15,9 @@ export const popularGames =
     d = ""
   ) =>
   async (dispatch) => {
+    dispatch({
+      type: "LOADING_POPULAR_GAMES",
+    });
     const popularData = await axios.get(
       ALL_POPULAR_GAMES(
         searchParam,
