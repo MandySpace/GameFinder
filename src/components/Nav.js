@@ -373,12 +373,11 @@ const Form = styled.form`
     padding: 0.5rem 1rem;
     padding-right: 3rem;
     font-size: 1.2rem;
-    border-radius: 8px;
     font-weight: 100;
     border: 1px solid #a3a3a3;
 
     &:focus {
-      outline: 2px solid var(--color-primary);
+      outline: 1px solid var(--color-primary);
     }
 
     @media screen and (max-width: 40.625em) {

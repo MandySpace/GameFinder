@@ -24,7 +24,9 @@ function PlatformCards() {
             to="/results"
             onClick={() => dispatch(searchGames("", 1, "", "", "", "", 2))}
           >
-            <button className="btn">Explore All &rarr;</button>
+            <button className="btn">
+              Explore All <span>&rarr;</span>
+            </button>
           </Link>
         </div>
         <div className="cards xbox">
@@ -33,7 +35,9 @@ function PlatformCards() {
             to="/results"
             onClick={() => dispatch(searchGames("", 1, "", "", "", "", 3))}
           >
-            <button className="btn">Explore All &rarr;</button>
+            <button className="btn">
+              Explore All <span>&rarr;</span>
+            </button>
           </Link>
         </div>
         <div className="cards pc">
@@ -42,7 +46,9 @@ function PlatformCards() {
             to="/results"
             onClick={() => dispatch(searchGames("", 1, "", "", "", "", 1))}
           >
-            <button className="btn">Explore All &rarr;</button>
+            <button className="btn">
+              Explore All <span>&rarr;</span>
+            </button>
           </Link>
         </div>
       </div>
@@ -126,6 +132,12 @@ const StyledPlatformCards = styled(motion.div)`
     &:hover {
       color: #fff;
       background: var(--color-primary);
+    }
+
+    span {
+      @media screen and (max-width: 31.25em) {
+        display: none;
+      }
     }
 
     @media (hover: none) {
