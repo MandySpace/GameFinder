@@ -209,7 +209,7 @@ const Container = styled(motion.div)`
   padding: 2rem 0;
   display: grid;
   margin: 0 auto;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
   row-gap: 1rem;
   column-gap: 1rem;
   justify-items: center;
@@ -220,19 +220,19 @@ const Container = styled(motion.div)`
   }
 
   @media screen and (max-width: 68.75em) {
-    grid-template-columns: repeat(auto-fill, 150px);
+    grid-template-columns: repeat(auto-fit, 150px);
   }
 
   @media screen and (max-width: 53.125em) {
-    grid-template-columns: repeat(auto-fill, 125px);
+    grid-template-columns: repeat(auto-fit, 125px);
   }
 
   @media screen and (max-width: 40.625em) {
-    grid-template-columns: repeat(auto-fill, 100px);
+    grid-template-columns: repeat(auto-fit, 100px);
   }
 
   @media screen and (max-width: 31.25em) {
-    grid-template-columns: repeat(auto-fill, 80px);
+    grid-template-columns: repeat(auto-fit, 80px);
     column-gap: 2rem;
   }
 `;

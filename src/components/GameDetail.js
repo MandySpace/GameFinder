@@ -600,7 +600,7 @@ const Series = styled.div`
   margin: 0 auto;
   margin-bottom: 5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 250px);
+  grid-template-columns: repeat(auto-fill, 250px);
   row-gap: 1rem;
   column-gap: 1rem;
   justify-items: center;
@@ -611,15 +611,15 @@ const Series = styled.div`
   }
 
   @media screen and (max-width: 68.75em) {
-    grid-template-columns: repeat(auto-fit, 150px);
+    grid-template-columns: repeat(auto-fill, 150px);
   }
 
   @media screen and (max-width: 53.125em) {
-    grid-template-columns: repeat(auto-fit, 125px);
+    grid-template-columns: repeat(auto-fill, 125px);
   }
 
   @media screen and (max-width: 40.625em) {
-    grid-template-columns: repeat(auto-fit, 100px);
+    grid-template-columns: repeat(auto-fill, 100px);
     width: 100%;
     padding: 0 5rem;
   }
