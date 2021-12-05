@@ -49,7 +49,7 @@ function Genres({
   };
 
   return (
-    <StyledGenre>
+    <StyledGenre className="filter">
       <h3>Genres</h3>
       {genres.map((genre, i) => (
         <Checkbox key={genre.id} className="filter">
@@ -59,8 +59,14 @@ function Genres({
             value={genre.id}
             onChange={changeHandler}
             checked={checkedGenre[i]}
+            className="filter"
           />
-          <label htmlFor={genre.name} onClick={checkboxHandler} data-index={i}>
+          <label
+            htmlFor={genre.name}
+            onClick={checkboxHandler}
+            data-index={i}
+            className="filter"
+          >
             {genre.name}
           </label>
         </Checkbox>

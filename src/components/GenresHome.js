@@ -75,6 +75,8 @@ const Genres = styled.div`
 
   @media screen and (max-width: 31.25em) {
     grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
   }
 `;
 

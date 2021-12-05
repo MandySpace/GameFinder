@@ -50,7 +50,7 @@ function Filter({ query, sort, action }) {
     19: false,
   });
   const [checkedMetacritic, setCheckedMetacritic] = useState({
-    0: true,
+    0: false,
     1: false,
     2: false,
     3: false,
@@ -59,7 +59,6 @@ function Filter({ query, sort, action }) {
     6: false,
     7: false,
     8: false,
-    9: false,
   });
 
   const dispatch = useDispatch();
@@ -109,7 +108,7 @@ function Filter({ query, sort, action }) {
     setFilteredGenres([]);
 
     setCheckedMetacritic({
-      0: true,
+      0: false,
       1: false,
       2: false,
       3: false,
@@ -118,7 +117,6 @@ function Filter({ query, sort, action }) {
       6: false,
       7: false,
       8: false,
-      9: false,
     });
     setFilteredMetacritic([]);
 
@@ -126,7 +124,7 @@ function Filter({ query, sort, action }) {
   };
 
   return (
-    <StyledFilter>
+    <StyledFilter className="filter">
       <div className="clear-button">
         <button onClick={clearFiltersHandler}>Clear</button>
       </div>

@@ -177,7 +177,7 @@ const Header = styled(motion.div)`
   margin-bottom: 5rem;
 
   @media screen and (max-width: 53.125em) {
-    height: 50rem;
+    height: 45rem;
     margin-bottom: 2rem;
   }
 
@@ -198,7 +198,7 @@ const Header = styled(motion.div)`
       object-position: center;
 
       @media screen and (max-width: 53.125em) {
-        height: 50rem;
+        height: 45rem;
       }
     }
   }

@@ -5,7 +5,7 @@ import { upcomingGames } from "../actions/upcomingAction";
 import { popularGames } from "../actions/popularAction";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import close from "../img/close.svg";
+import close from "../img/close_ham.svg";
 import { useState } from "react";
 
 function Hamburger() {

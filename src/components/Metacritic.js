@@ -12,7 +12,6 @@ function Metacritic({
   checkedMetacritic,
 }) {
   const metacritic = [
-    { name: "All Ratings", id: "0,100" },
     { name: "90 - 100", id: "90,100" },
     { name: "80 - 90", id: "80,90" },
     { name: "70 - 80", id: "70,80" },
@@ -51,7 +50,7 @@ function Metacritic({
   };
 
   return (
-    <StyledMetacritic>
+    <StyledMetacritic className="filter">
       <h3>Metacritic</h3>
       {metacritic.map((metacritic, i) => (
         <Checkbox key={metacritic.id} className="filter">
@@ -62,11 +61,13 @@ function Metacritic({
             name="metacritic"
             checked={checkedMetacritic[i]}
             onChange={changeHandler}
+            className="filter"
           />
           <label
             htmlFor={metacritic.name}
             data-index={i}
             onClick={checkboxHandler}
+            className="filter"
           >
             {metacritic.name}
           </label>

@@ -64,7 +64,7 @@ html {
       font-size: 75%;
   }
 
-  @media screen and (max-width: 53.125em){
+  @media screen and (max-width: 57.81em){
       font-size: 60%;
   }
 

@@ -66,6 +66,10 @@ const StyledPlatformCards = styled(motion.div)`
     display: flex;
     justify-content: center;
     gap: 2rem;
+
+    @media screen and (max-width: 31.25em) {
+      gap: 0.7rem;
+    }
   }
 
   .cards {
@@ -95,9 +99,13 @@ const StyledPlatformCards = styled(motion.div)`
 
     @media screen and (max-width: 68.75em) {
       width: 25%;
+      img {
+        height: 80px;
+      }
     }
 
-    @media screen and (max-width: 68.75em) {
+    @media screen and (max-width: 31.25em) {
+      width: 30%;
       img {
         height: 80px;
       }
@@ -118,6 +126,11 @@ const StyledPlatformCards = styled(motion.div)`
     &:hover {
       color: #fff;
       background: var(--color-primary);
+    }
+
+    @media (hover: none) {
+      color: #000;
+      background: #ffffffa0;
     }
 
     @media screen and (max-width: 68.75em) {

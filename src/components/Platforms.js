@@ -56,7 +56,7 @@ function Platforms({
   };
 
   return (
-    <StyledPlatform>
+    <StyledPlatform className="filter">
       <h3>Platforms</h3>
       {platforms.map((platform, i) => (
         <Checkbox key={platform.id} className="filter">
@@ -66,11 +66,13 @@ function Platforms({
             value={platform.id}
             checked={checkedPlatform[i]}
             onChange={changeHandler}
+            className="filter"
           />
           <label
             htmlFor={platform.name}
             onClick={checkboxHandler}
             data-index={i}
+            className="filter"
           >
             {platform.name}
           </label>

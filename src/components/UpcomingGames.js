@@ -20,8 +20,6 @@ function UpcomingGames({ darkTheme }) {
 
   const [apiSortParam, setApiSortParam] = useState("");
 
-  const [filterButtonClicked, setFilterButtonClicked] = useState(false);
-
   const { upcoming, query, isLoading } = useSelector((store) => store.upcoming);
 
   const pageCount = 20;
@@ -45,14 +43,12 @@ function UpcomingGames({ darkTheme }) {
       animate="show"
       exit="exit"
       onClick={(e) => {
-        if (!e.target.classList.contains("filter"))
-          setFilterButtonClicked(false);
-        if (e.target.closest("div")?.classList.contains("filter"))
-          setFilterButtonClicked(true);
-        if (e.target.classList.contains("filter-button"))
-          setFilterButtonClicked(!filterButtonClicked);
-        if (e.target.closest("button")?.classList.contains("filter-button"))
-          setFilterButtonClicked(!filterButtonClicked);
+        if (
+          !e.target.classList.contains("filter") &&
+          !e.target.classList.contains("filter-button") &&
+          !e.target.classList.contains("filter-svg")
+        )
+          filterRef.current?.classList.remove("filter-active");
       }}
     >
       <Sorting>
@@ -63,12 +59,15 @@ function UpcomingGames({ darkTheme }) {
         <div className="filter-sort">
           <button
             className="filter-button"
-            onClick={(e) => {
-              console.log(filterRef.current);
+            onClick={() => {
               filterRef.current?.classList.toggle("filter-active");
             }}
           >
-            <img src={darkTheme ? filter : darkFilter} alt="filter icon" />
+            <img
+              src={darkTheme ? filter : darkFilter}
+              alt="filter icon"
+              class="filter-svg"
+            />
           </button>
           <Sort
             query={query}

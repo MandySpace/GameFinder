@@ -20,6 +20,7 @@ import Game from "./Game";
 import { fadeAnim } from "../animations";
 import { useDispatch } from "react-redux";
 import { detailGames } from "../actions/detailAction";
+import smoothscroll from "smoothscroll-polyfill";
 
 let i = 0;
 
@@ -74,10 +75,12 @@ function GameDetail() {
     scrollLeft = containerWidth * i;
 
     //SCROLLING CONTAINER
-    containerRef.current.scrollTo({
-      left: containerWidth * i,
-      behavior: "smooth",
-    });
+    smoothscroll.polyfill(
+      containerRef.current.scrollTo({
+        left: containerWidth * i,
+        behavior: "smooth",
+      })
+    );
 
     //ACTIVATING/DEACTIVATING BUTTONS
     scrollLeft + containerWidth < width

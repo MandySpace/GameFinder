@@ -3,6 +3,7 @@ import styled from "styled-components";
 import leftArrow from "../img/left.svg";
 import rightArrow from "../img/right.svg";
 import useWindowSize from "../components/useWindowSize";
+import smoothscroll from "smoothscroll-polyfill";
 
 const remToPixel = (rem) =>
   rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -17,10 +18,12 @@ function Carousel({ GamesParentRef, GamesRef }) {
 
   useEffect(() => {
     i.current = 0;
-    GamesRef.current.scrollTo({
-      left: 0,
-      behavior: "smooth",
-    });
+    smoothscroll.polyfill(
+      GamesRef.current.scrollTo({
+        left: 0,
+        behavior: "smooth",
+      })
+    );
     rightArrowRef.current.style.display = "inline-block";
     leftArrowRef.current.style.display = "none";
   }, [windowSize, GamesRef]);
@@ -46,10 +49,12 @@ function Carousel({ GamesParentRef, GamesRef }) {
     scrollLeft = (containerWidth - containerWidth * 0.1) * i.current;
 
     //SCROLLING CONTAINER
-    GamesRef.current.scrollTo({
-      left: (containerWidth - containerWidth * 0.1) * i.current,
-      behavior: "smooth",
-    });
+    smoothscroll.polyfill(
+      GamesRef.current.scrollTo({
+        left: (containerWidth - containerWidth * 0.1) * i.current,
+        behavior: "smooth",
+      })
+    );
 
     //ACTIVATING/DEACTIVATING BUTTONS
     scrollLeft + containerWidth < width
@@ -98,6 +103,12 @@ const Arrows = styled.div`
       transform: scale(1.02);
       background-color: var(--color-primary-dark);
     }
+    @media (hover: none) {
+      &:hover {
+        background-color: var(--color-primary);
+        transform: scale(1);
+      }
+    }
 
     &:active {
       transform: scale(0.98);
@@ -109,7 +120,7 @@ const Arrows = styled.div`
       top: 40%;
 
       &:hover {
-        transform: scale(0.82);
+        transform: scale(0.8);
       }
 
       &:active {
@@ -117,29 +128,11 @@ const Arrows = styled.div`
       }
     }
     @media screen and (max-width: 53.125em) {
-      transform: scale(0.6);
       top: 40%;
-
-      &:hover {
-        transform: scale(0.62);
-      }
-
-      &:active {
-        transform: scale(0.58);
-      }
     }
 
     @media screen and (max-width: 40.625em) {
-      transform: scale(0.5);
       top: 37%;
-
-      &:hover {
-        transform: scale(0.52);
-      }
-
-      &:active {
-        transform: scale(0.48);
-      }
     }
   }
   .left {

@@ -200,7 +200,7 @@ const StyledNav = styled.nav`
   }
 
   @media screen and (max-width: 31.25em) {
-    height: 40px;
+    height: 45px;
   }
 
   ul {
