@@ -130,7 +130,7 @@ const StyledPagination = styled.div`
 
   button {
     font-size: 1.2rem;
-    background: #fff;
+    background: var(--color-light-body);
     border: none;
     color: var(--color-primary);
     cursor: pointer;

@@ -8,6 +8,8 @@ function Metacritic({
   action,
   query,
   sort,
+  setCheckedMetacritic,
+  checkedMetacritic,
 }) {
   const metacritic = [
     { name: "All Ratings", id: "0,100" },
@@ -39,30 +41,69 @@ function Metacritic({
     setFilteredMetacritic(arr);
   };
 
+  const checkboxHandler = (e) => {
+    const i = e.target.dataset.index;
+    const arr1 = Object.keys(checkedMetacritic).map(
+      (key) => (checkedMetacritic[key] = false)
+    );
+    arr1[i] = true;
+    setCheckedMetacritic(arr1);
+  };
+
   return (
     <StyledMetacritic>
       <h3>Metacritic</h3>
-      {metacritic.map((platform) => (
-        <Checkbox key={platform.id}>
+      {metacritic.map((metacritic, i) => (
+        <Checkbox key={metacritic.id} className="filter">
           <input
             type="radio"
-            id={platform.name}
-            value={platform.id}
+            id={metacritic.name}
+            value={metacritic.id}
             name="metacritic"
+            checked={checkedMetacritic[i]}
             onChange={changeHandler}
           />
-          <label htmlFor={platform.name}>{platform.name}</label>
+          <label
+            htmlFor={metacritic.name}
+            data-index={i}
+            onClick={checkboxHandler}
+          >
+            {metacritic.name}
+          </label>
         </Checkbox>
       ))}
     </StyledMetacritic>
   );
 }
 
-const StyledMetacritic = styled.div``;
+const StyledMetacritic = styled.div`
+  margin-bottom: 1rem;
+`;
 
 const Checkbox = styled.div`
+  margin: 0.1rem 0;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 40.625em) {
+    margin: -0.1rem;
+  }
+
   input {
+    cursor: pointer;
     margin-right: 1rem;
+
+    @media screen and (max-width: 53.125em) {
+      transform: scale(0.8);
+    }
+
+    @media screen and (max-width: 40.625em) {
+      transform: scale(0.6);
+    }
+  }
+
+  label {
+    cursor: pointer;
   }
 `;
 

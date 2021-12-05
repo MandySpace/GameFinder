@@ -21,7 +21,7 @@ function Footer() {
             to="/latest"
             onClick={() => dispatch(latestGames())}
           >
-            <h4>Latest Releases</h4>
+            <h4>Latest</h4>
           </Link>
           <ul>
             <Link
@@ -50,7 +50,7 @@ function Footer() {
             to="/upcoming"
             onClick={() => dispatch(upcomingGames())}
           >
-            <h4>Upcoming Releases</h4>
+            <h4>Upcoming</h4>
           </Link>
           <ul>
             <Link
@@ -85,7 +85,7 @@ function Footer() {
             to="/popular"
             onClick={() => dispatch(popularGames())}
           >
-            <h4>Popular Releases</h4>
+            <h4>Popular</h4>
           </Link>
           <ul>
             <Link
@@ -178,8 +178,8 @@ function Footer() {
 const StyledFooter = styled.div`
   width: 100%;
   height: 35rem;
-  background-color: var(--color-primary-dark);
   color: #fff;
+  background-color: var(--color-primary-dark);
   font-size: 1.2rem;
 
   h4,
@@ -194,6 +194,8 @@ const StyledFooter = styled.div`
   }
 
   h4 {
+    color: #fff;
+    text-align: center;
     font-size: 1.5rem;
     font-weight: 400;
     cursor: pointer;
@@ -203,9 +205,14 @@ const StyledFooter = styled.div`
   p {
     margin-top: 5rem;
     text-align: center;
+
+    @media screen and (max-width: 53.125em) {
+      margin-top: 3rem;
+    }
   }
 
   li {
+    color: #fff;
     text-align: center;
     list-style: none;
     margin-top: 0.5rem;
@@ -220,6 +227,11 @@ const StyledFooter = styled.div`
     display: flex;
     justify-content: center;
     gap: 10rem;
+
+    @media screen and (max-width: 31.25em) {
+      width: 90%;
+      gap: 5rem;
+    }
   }
 
   .contact {
@@ -229,6 +241,10 @@ const StyledFooter = styled.div`
       text-align: center;
       margin: 2rem 0;
       margin-top: 5rem;
+
+      @media screen and (max-width: 53.125em) {
+        margin-top: 3rem;
+      }
     }
 
     .svg-container {
@@ -243,6 +259,10 @@ const StyledFooter = styled.div`
 
       .svg {
         width: 50px;
+
+        @media screen and (max-width: 40.625em) {
+          width: 30px;
+        }
       }
     }
   }

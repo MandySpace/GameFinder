@@ -12,6 +12,8 @@ function Platforms({
   action,
   query,
   sort,
+  checkedPlatform,
+  setCheckedPlatform,
 }) {
   const [platforms, setPlatforms] = useState([]);
 
@@ -28,45 +30,84 @@ function Platforms({
   const changeHandler = (e) => {
     let arr = [...filteredPlatforms];
 
-    if (e.target.checked) {
+    if (!filteredPlatforms.includes(e.target.value)) {
       arr.push(e.target.value);
     } else {
       arr = arr.filter((ele) => ele !== e.target.value);
     }
+
     const platformQuery = arr.join(",");
     const genreQuery = filteredGenres.join(",");
     const metacriticQuery = filteredMetacritic.join(",");
+
     dispatch(
       action(query, 1, sort, platformQuery, genreQuery, metacriticQuery)
     );
+    console.log(filteredPlatforms);
 
     setFilteredPlatforms(arr);
+  };
+
+  const checkboxHandler = (e) => {
+    const i = e.target.dataset.index;
+    let arr1 = { ...checkedPlatform };
+    arr1[i] = arr1[i] === true ? false : true;
+    setCheckedPlatform(arr1);
   };
 
   return (
     <StyledPlatform>
       <h3>Platforms</h3>
-      {platforms.map((platform) => (
-        <Checkbox key={platform.id}>
+      {platforms.map((platform, i) => (
+        <Checkbox key={platform.id} className="filter">
           <input
             type="checkbox"
             id={platform.name}
             value={platform.id}
+            checked={checkedPlatform[i]}
             onChange={changeHandler}
-            checked={platform.checked}
           />
-          <label htmlFor={platform.name}>{platform.name}</label>
+          <label
+            htmlFor={platform.name}
+            onClick={checkboxHandler}
+            data-index={i}
+          >
+            {platform.name}
+          </label>
         </Checkbox>
       ))}
     </StyledPlatform>
   );
 }
 
-const StyledPlatform = styled.div``;
+const StyledPlatform = styled.div`
+  margin-bottom: 1rem;
+`;
 
 const Checkbox = styled.div`
+  margin: 0.1rem 0;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 40.625em) {
+    margin: -0.1rem;
+  }
+
   input {
+    cursor: pointer;
     margin-right: 1rem;
+
+    @media screen and (max-width: 53.125em) {
+      transform: scale(0.8);
+    }
+
+    @media screen and (max-width: 40.625em) {
+      transform: scale(0.6);
+    }
+  }
+
+  label {
+    cursor: pointer;
   }
 `;
 

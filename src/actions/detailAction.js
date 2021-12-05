@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GAME_DETAIL_URL, GAME_SCREENSHOTS_URL, GAME_SERIES_URL } from "../api";
 
-export const detail = (id) => async (dispatch) => {
+export const detailGames = (id) => async (dispatch) => {
   dispatch({ type: "LOADING" });
   const detail = await axios.get(GAME_DETAIL_URL(id));
   const screenshots = await axios.get(GAME_SCREENSHOTS_URL(id));

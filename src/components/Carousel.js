@@ -90,6 +90,7 @@ const Arrows = styled.div`
     background-color: var(--color-primary);
     box-shadow: 0 2px 10px #00000057;
     cursor: pointer;
+    z-index: 1000;
     will-change: transform;
     transition: transform 0.1s;
 
@@ -102,13 +103,74 @@ const Arrows = styled.div`
       transform: scale(0.98);
       background-color: var(--color-primary-dark);
     }
+
+    @media screen and (max-width: 68.75em) {
+      transform: scale(0.8);
+      top: 40%;
+
+      &:hover {
+        transform: scale(0.82);
+      }
+
+      &:active {
+        transform: scale(0.78);
+      }
+    }
+    @media screen and (max-width: 53.125em) {
+      transform: scale(0.6);
+      top: 40%;
+
+      &:hover {
+        transform: scale(0.62);
+      }
+
+      &:active {
+        transform: scale(0.58);
+      }
+    }
+
+    @media screen and (max-width: 40.625em) {
+      transform: scale(0.5);
+      top: 37%;
+
+      &:hover {
+        transform: scale(0.52);
+      }
+
+      &:active {
+        transform: scale(0.48);
+      }
+    }
   }
   .left {
     left: -1%;
+    @media screen and (max-width: 68.75em) {
+      left: -3%;
+    }
+
+    @media screen and (max-width: 31.25em) {
+      left: -4%;
+    }
+
+    @media screen and (max-width: 25em) {
+      left: -6%;
+    }
   }
 
   .right {
     right: -1%;
+
+    @media screen and (max-width: 68.75em) {
+      right: -3%;
+    }
+
+    @media screen and (max-width: 31.25em) {
+      right: -4%;
+    }
+
+    @media screen and (max-width: 25em) {
+      right: -6%;
+    }
   }
 `;
 

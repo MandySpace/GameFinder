@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 function Spinner() {
   return (
@@ -21,7 +22,7 @@ function Spinner() {
   );
 }
 
-const StyledSpinner = styled.div`
+const StyledSpinner = styled(motion.div)`
   width: 100%;
   height: 100vh;
   display: flex;

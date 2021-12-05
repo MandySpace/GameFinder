@@ -1,23 +1,41 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-:root{
-    /* --color-light-font: #202020;
+/* :root{
+    --color-light-font: #202020;
+
+    --color-light-body: #fff;
+
+     --color-light-font: #fff;
+
+    --color-light-body: #1a1a1a;
+
+    --color-primary: #186ED7;
+
+    --color-primary-dark: #00439C;
+}   */
+
+.light {
+
+    --color-light-font: #202020;
 
     --color-light-body: #fff;
 
     --color-primary: #186ED7;
 
-    --color-primary-dark: #00439C; */
+    --color-primary-dark: #00439C;
 
+}
+
+.dark{
     --color-light-font: #fff;
 
-    --color-light-body: #202020;
+    --color-light-body: #1a1a1a;
 
     --color-primary: #186ED7;
 
     --color-primary-dark: #00439C;
-} 
+}
 
 * {
     margin: 0;
@@ -26,6 +44,7 @@ const GlobalStyles = createGlobalStyle`
 }
 
 html {
+    font-size: 100%;
     &::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -36,9 +55,23 @@ html {
   }
 
   &::-webkit-scrollbar-track {
-    background: white;
+    /* background-color: #0000000; */
     border-radius: 50px;
   }
+
+
+  @media screen and (max-width: 68.75em){
+      font-size: 75%;
+  }
+
+  @media screen and (max-width: 53.125em){
+      font-size: 60%;
+  }
+
+  @media screen and (max-width: 40.625em){
+      font-size: 40%;
+  }
+  
 }
 
 body {

@@ -17,6 +17,9 @@ import {
 import metacritic from "../img/metacritic.svg";
 import { useEffect, useState, useRef } from "react";
 import Game from "./Game";
+import { fadeAnim } from "../animations";
+import { useDispatch } from "react-redux";
+import { detailGames } from "../actions/detailAction";
 
 let i = 0;
 
@@ -34,7 +37,14 @@ function GameDetail() {
 
   const [galleryPic, setGalleryPic] = useState(null);
 
+  const dispatch = useDispatch();
+
   useEffect(() => setGalleryPic(screenshots[0]?.image), [screenshots]);
+
+  useEffect(() => {
+    if (Object.keys(detail).length === 0)
+      dispatch(detailGames(location.pathname.split("/").slice(-1)));
+  }, [dispatch, detail, location.pathname]);
 
   const exitDetailHandler = (e) => {
     if (e.target.classList.contains("close")) {
@@ -80,7 +90,13 @@ function GameDetail() {
   };
 
   return (
-    <ModalContainer onClick={exitDetailHandler} className="close">
+    <ModalContainer
+      onClick={exitDetailHandler}
+      className="close"
+      variants={fadeAnim}
+      initial="hidden"
+      animate="show"
+    >
       {isLoading ? (
         <LoadingSpinner>
           <div></div>
@@ -89,13 +105,16 @@ function GameDetail() {
           <div></div>
         </LoadingSpinner>
       ) : (
-        <Detail>
-          <img
-            src={close}
-            alt="close icon"
-            className="svg close"
-            onClick={exitDetailHandler}
-          />
+        <Detail variants={fadeAnim}>
+          <div className="svg close">
+            <img
+              src={close}
+              alt="close icon"
+              className="close"
+              onClick={exitDetailHandler}
+            />
+          </div>
+
           <Media>
             <img src={detail.background_image} alt="Game cover" />
 
@@ -124,7 +143,9 @@ function GameDetail() {
               <div className="empty">
                 {emptyStars()}
                 <div className="full">
-                  {ratingToStars(detail.rating).map((star, i) => star)}
+                  {ratingToStars(detail.rating).map((star, i) => (
+                    <span key={i}>{star}</span>
+                  ))}
                 </div>
               </div>
               <p>{detail.rating}</p>
@@ -143,71 +164,77 @@ function GameDetail() {
 
           <Table>
             <table>
-              <tr>
-                <td>Platform:</td>
-                <td>
-                  {detail.parent_platforms
-                    ?.map((platform) => platform.platform.name)
-                    .join(", ")}
-                </td>
-              </tr>
-              <tr>
-                <td>Release:</td>
-                <td>{reverseDate(detail.released)}</td>
-              </tr>
-              <tr>
-                <td>Publisher:</td>
-                <td>
-                  {detail.publishers
-                    .map((publisher) => publisher.name)
-                    .join(", ")}
-                </td>
-              </tr>
-              <tr>
-                <td>Genres:</td>
-                <td>{detail.genres?.map((genre) => genre.name).join(", ")}</td>
-              </tr>
-              <tr>
-                <td>Website:</td>
-                <td>
-                  <a href={detail.website} target="_blank" rel="noreferrer">
-                    {detail.website}
-                  </a>
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td className="left">Platform:</td>
+                  <td>
+                    {detail.parent_platforms
+                      ?.map((platform) => platform.platform.name)
+                      .join(", ")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="left">Release:</td>
+                  <td>{reverseDate(detail.released)}</td>
+                </tr>
+                <tr>
+                  <td className="left">Publisher:</td>
+                  <td>
+                    {detail.publishers
+                      .map((publisher) => publisher.name)
+                      .join(", ")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="left">Genres:</td>
+                  <td>
+                    {detail.genres?.map((genre) => genre.name).join(", ")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="left">Website:</td>
+                  <td>
+                    <a href={detail.website} target="_blank" rel="noreferrer">
+                      {detail.website}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
             </table>
 
             <table>
-              <tr>
-                <td>Developers:</td>
-                <td>
-                  {detail.developers
-                    ?.map((developer) => developer.name)
-                    .join(", ")}
-                </td>
-              </tr>
-              <tr>
-                <td>Tags:</td>
-                <td>
-                  {detail.tags
-                    .map((tag) => tag.name)
-                    .slice(0, 4)
-                    .join(", ")}
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td className="left">Developers:</td>
+                  <td>
+                    {detail.developers
+                      ?.map((developer) => developer.name)
+                      .join(", ")}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="left">Tags:</td>
+                  <td>
+                    {detail.tags
+                      .map((tag) => tag.name)
+                      .slice(0, 4)
+                      .join(", ")}
+                  </td>
+                </tr>
 
-              <tr>
-                <td>Metacritic:</td>
-                <td>
-                  <a
-                    href={detail.metacritic_url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {detail.metacritic_url}
-                  </a>
-                </td>
-              </tr>
+                <tr>
+                  <td className="left">Metacritic:</td>
+                  <td>
+                    <a
+                      href={detail.metacritic_url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {detail.metacritic_url}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </Table>
 
@@ -286,8 +313,9 @@ function GameDetail() {
                   store.store?.name
                 )
               )
-              .map((store) => (
+              .map((store, i) => (
                 <a
+                  key={i}
                   href={`https://${store.store.domain}`}
                   target="_blank"
                   rel="noreferrer"
@@ -308,9 +336,10 @@ function GameDetail() {
 const ModalContainer = styled(motion.div)`
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-x: hidden;
 
-  backdrop-filter: blur(8px) brightness(0.4);
+  backdrop-filter: blur(6px) brightness(0.4);
   position: fixed;
   top: 0;
   left: 0;
@@ -325,6 +354,12 @@ const ModalContainer = styled(motion.div)`
     background-color: darkgray;
     border-radius: 50px;
   }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--color-light-body);
+    border-radius: 50px;
+  }
+  z-index: 20000;
 `;
 
 const Detail = styled(motion.div)`
@@ -332,23 +367,32 @@ const Detail = styled(motion.div)`
   top: 0;
   left: 10%;
   width: 80%;
-  height: 100vh;
-  overflow-y: auto;
+  height: max-content;
+  /* overflow-y: auto; */
   background: var(--color-light-body);
   padding-bottom: 5rem;
-
   color: var(--color-light-font);
+  z-index: 20000;
 
   .svg {
-    position: fixed;
-    top: 0%;
-    right: 0%;
+    width: 32px;
+    position: absolute;
+    top: 0.5%;
+    right: 1.5%;
     cursor: pointer;
     z-index: 2000;
 
     &:hover {
       transform: scale(1.05);
     }
+
+    img {
+      display: block;
+    }
+    /* @media screen and (max-width: 31.25em) {
+      top: 0%;
+      right: 0%;
+    } */
   }
 
   h4 {
@@ -362,6 +406,11 @@ const Detail = styled(motion.div)`
     background-color: var(--color-primary);
     color: #ffffff;
     padding: 0.3rem 3rem;
+  }
+
+  @media screen and (max-width: 68.75em) {
+    width: 100%;
+    left: 0;
   }
 `;
 
@@ -384,6 +433,10 @@ const Stats = styled(motion.div)`
     font-weight: 300;
     line-height: 1;
   }
+
+  @media screen and (max-width: 31.25em) {
+    width: 50%;
+  }
 `;
 
 const RatingContainer = styled.div`
@@ -401,6 +454,14 @@ const RatingContainer = styled.div`
 
     img {
       width: 30px;
+
+      @media screen and (max-width: 53.125em) {
+        width: 20px;
+      }
+
+      @media screen and (max-width: 40.625em) {
+        width: 10px;
+      }
     }
 
     .empty {
@@ -428,6 +489,10 @@ const RatingContainer = styled.div`
     img {
       width: 35px;
       object-fit: cover;
+
+      @media screen and (max-width: 40.625em) {
+        width: 20px;
+      }
     }
 
     p {
@@ -440,6 +505,14 @@ const RatingContainer = styled.div`
     img {
       width: 64px;
       object-fit: cover;
+
+      @media screen and (max-width: 53.125em) {
+        width: 50px;
+      }
+
+      @media screen and (max-width: 40.625em) {
+        width: 30px;
+      }
     }
   }
 `;
@@ -458,6 +531,26 @@ const Platforms = styled(motion.div)`
 
   img {
     width: 36px;
+  }
+
+  @media screen and (max-width: 68.75em) {
+    margin-top: -4.1rem;
+  }
+
+  @media screen and (max-width: 53.125em) {
+    margin-top: -3.2rem;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  @media screen and (max-width: 40.625em) {
+    margin-top: -2.8rem;
+
+    img {
+      width: 10px;
+    }
   }
 `;
 
@@ -480,16 +573,27 @@ const Description = styled(motion.div)`
   line-height: 1.6;
   color: var(--color-light-font);
 
+  @media screen and (max-width: 40.625em) {
+    width: 100%;
+    padding: 0 5rem;
+  }
+
+  @media screen and (max-width: 31.25em) {
+    padding: 0 3rem;
+  }
+
   p {
     margin: 0 auto;
     column-count: 2;
+    @media screen and (max-width: 40.625em) {
+      width: 80%;
+    }
   }
 
   img {
     width: 100%;
     object-fit: cover;
     margin-bottom: 3rem;
-    outline: 10px solid #fff;
   }
 `;
 
@@ -499,7 +603,7 @@ const Series = styled.div`
   margin: 0 auto;
   margin-bottom: 5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 250px));
+  grid-template-columns: repeat(auto-fit, 250px);
   row-gap: 1rem;
   column-gap: 1rem;
   justify-items: center;
@@ -508,6 +612,24 @@ const Series = styled.div`
   img {
     width: 100%;
   }
+
+  @media screen and (max-width: 68.75em) {
+    grid-template-columns: repeat(auto-fit, 150px);
+  }
+
+  @media screen and (max-width: 53.125em) {
+    grid-template-columns: repeat(auto-fit, 125px);
+  }
+
+  @media screen and (max-width: 40.625em) {
+    grid-template-columns: repeat(auto-fit, 100px);
+    width: 100%;
+    padding: 0 5rem;
+  }
+
+  @media screen and (max-width: 31.25em) {
+    padding: 0 3rem;
+  }
 `;
 
 const Table = styled.div`
@@ -515,10 +637,16 @@ const Table = styled.div`
   justify-content: center;
   margin: 10rem auto;
   font-weight: 400;
+  padding: 0 5rem;
+
   td {
     font-size: 1.2rem;
-    padding: 0 1rem;
+    padding-left: 1rem;
     max-width: 30ch;
+
+    @media screen and (max-width: 87.5em) {
+      font-size: 1rem;
+    }
   }
 
   td a {
@@ -528,16 +656,37 @@ const Table = styled.div`
       color: var(--color-primary);
     }
   }
+
+  @media screen and (max-width: 40.625em) {
+    flex-direction: column;
+    width: 60%;
+    margin-top: 5rem;
+
+    .left {
+      width: 10rem;
+    }
+  }
+
+  @media screen and (max-width: 31.25em) {
+    flex-direction: column;
+    width: 90%;
+    margin-top: 7rem;
+
+    .left {
+      width: 10rem;
+    }
+  }
 `;
 
 const Stores = styled(motion.div)`
-  width: max-content;
+  width: 80%;
   max-width: 50em;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  padding: 0 2rem;
 
   a {
     background-color: #fff;
@@ -556,8 +705,40 @@ const Stores = styled(motion.div)`
   }
 
   img {
-    width: 300px;
+    width: 250px;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 68.75em) {
+    width: 70%;
+
+    img {
+      width: 200px;
+    }
+
+    a {
+      height: 150px;
+    }
+  }
+
+  @media screen and (max-width: 53.125em) {
+    img {
+      width: 150px;
+    }
+
+    a {
+      height: 100px;
+    }
+  }
+
+  @media screen and (max-width: 40.625em) {
+    img {
+      width: 80px;
+    }
+
+    a {
+      height: 50px;
+    }
   }
 `;
 
@@ -607,6 +788,15 @@ const Gallery = styled(motion.div)`
   margin: 0 auto;
   position: relative;
 
+  @media screen and (max-width: 40.625em) {
+    width: 100%;
+    padding: 0 5rem;
+  }
+
+  @media screen and (max-width: 31.25em) {
+    padding: 0 3rem;
+  }
+
   .gallery-pic {
     width: 100%;
   }
@@ -650,13 +840,89 @@ const Gallery = styled(motion.div)`
       transform: scale(0.98);
       background-color: var(--color-primary-dark);
     }
+
+    @media screen and (max-width: 68.75em) {
+      transform: scale(0.8);
+      top: 81%;
+
+      &:hover {
+        transform: scale(0.82);
+      }
+
+      &:active {
+        transform: scale(0.78);
+      }
+    }
+
+    @media screen and (max-width: 53.125em) {
+      transform: scale(0.6);
+      top: 83%;
+
+      &:hover {
+        transform: scale(0.62);
+      }
+
+      &:active {
+        transform: scale(0.58);
+      }
+    }
+
+    @media screen and (max-width: 40.625em) {
+      transform: scale(0.5);
+      top: 81%;
+
+      &:hover {
+        transform: scale(0.52);
+      }
+
+      &:active {
+        transform: scale(0.48);
+      }
+    }
+
+    @media screen and (max-width: 31.25em) {
+      transform: scale(0.4);
+      top: 80%;
+
+      &:hover {
+        transform: scale(0.42);
+      }
+
+      &:active {
+        transform: scale(0.38);
+      }
+    }
   }
   .left {
     left: -1.6%;
+
+    @media screen and (max-width: 68.75em) {
+      left: -3%;
+    }
+
+    @media screen and (max-width: 40.625em) {
+      left: 3%;
+    }
+
+    @media screen and (max-width: 31.25em) {
+      left: 1%;
+    }
   }
 
   .right {
     right: -1.6%;
+
+    @media screen and (max-width: 68.75em) {
+      right: -3%;
+    }
+
+    @media screen and (max-width: 40.625em) {
+      right: 3%;
+    }
+
+    @media screen and (max-width: 31.25em) {
+      right: 1%;
+    }
   }
 `;
 

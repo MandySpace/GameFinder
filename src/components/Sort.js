@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import sort from "../img/sort.svg";
+import sortDark from "../img/sort-dark.svg";
 
-function Sort({ query, setApiSortParam, action }) {
+function Sort({ query, setApiSortParam, action, darkTheme }) {
   const [displaySortingOptions, setDisplaySortingOptions] = useState(false);
   const [sortBy, setSortBy] = useState({
     Popularity: true,
@@ -48,7 +50,18 @@ function Sort({ query, setApiSortParam, action }) {
 
   return (
     <StyledSort>
-      <button onClick={() => setDisplaySortingOptions(true)}>Sort by</button>
+      <button
+        onClick={() => setDisplaySortingOptions(true)}
+        className="desktop-button"
+      >
+        Sort by
+      </button>
+      <button
+        onClick={() => setDisplaySortingOptions(true)}
+        className="mobile-button"
+      >
+        <img src={darkTheme ? sort : sortDark} alt="sort icon" />
+      </button>
 
       {displaySortingOptions && (
         <form action="#" className="form">
@@ -172,6 +185,14 @@ const StyledSort = styled.div`
       background-color: var(--color-primary);
       border: 2px solid var(--color-primary);
     }
+
+    @media screen and (max-width: 53.125em) {
+      font-size: 1.2rem;
+    }
+
+    @media screen and (max-width: 40.625em) {
+      font-size: 1.5rem;
+    }
   }
 
   form {
@@ -181,12 +202,25 @@ const StyledSort = styled.div`
     top: -10%;
     left: -10%;
     display: flex;
+    z-index: 1000;
     flex-direction: column;
     width: max-content;
     font-size: 1rem;
     border: 1px solid #cccccc;
     border-radius: 10px;
     overflow: hidden;
+
+    @media screen and (max-width: 68.75em) {
+      left: -30%;
+    }
+    @media screen and (max-width: 53.125em) {
+      left: -350%;
+      font-size: 1.5rem;
+    }
+
+    @media screen and (max-width: 40.625em) {
+      left: -250%;
+    }
 
     input {
       display: none;
@@ -202,9 +236,32 @@ const StyledSort = styled.div`
       background-color: #cccccc;
     }
   }
-  .active {
+  .active,
+  .active:hover {
     color: #fff;
     background-color: var(--color-primary);
+  }
+
+  .mobile-button {
+    display: none;
+    @media screen and (max-width: 53.125em) {
+      display: block;
+      padding: 0.5rem 1rem;
+      border: 1px solid #8b8b8b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        border: 1px solid var(--color-primary);
+      }
+    }
+  }
+
+  .desktop-button {
+    @media screen and (max-width: 53.125em) {
+      display: none;
+    }
   }
 `;
 

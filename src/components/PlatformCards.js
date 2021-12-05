@@ -4,6 +4,7 @@ import steam from "../img/steam_card.svg";
 import playstationBg from "../img/playstation_background.jpg";
 import xboxBg from "../img/xbox_background.jpg";
 import steamBg from "../img/steam_background.jpg";
+import bg from "../img/background.jpg";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ function PlatformCards() {
 
   return (
     <StyledPlatformCards>
-      <h2>Browse by platforms</h2>
+      {/* <h2>Browse by platforms</h2> */}
       <div className="card-container">
         <div className="cards ps">
           <img src={playstation} alt="platform logo Playstation" />
@@ -50,14 +51,16 @@ function PlatformCards() {
 }
 
 const StyledPlatformCards = styled(motion.div)`
+  width: 100%;
+  max-height: 50rem;
+  background-image: url(${bg});
+  background-size: cover;
+  background-position: 0% 30%;
+  margin: 7.5rem 0;
   margin-bottom: 10rem;
-
-  h2 {
-    text-align: center;
-  }
+  padding: 10rem 0;
 
   .card-container {
-    width: 90%;
     max-width: 120rem;
     margin: 0 auto;
     display: flex;
@@ -74,7 +77,7 @@ const StyledPlatformCards = styled(motion.div)`
     aspect-ratio: 1;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 3px 10px #00000034;
+    box-shadow: 0 1px 50px #ffffff2d;
     background-size: cover;
     background-position: right;
     background-blend-mode: soft-light;
@@ -88,6 +91,16 @@ const StyledPlatformCards = styled(motion.div)`
     img {
       width: 100%;
       height: 100px;
+    }
+
+    @media screen and (max-width: 68.75em) {
+      width: 25%;
+    }
+
+    @media screen and (max-width: 68.75em) {
+      img {
+        height: 80px;
+      }
     }
   }
 
@@ -105,6 +118,10 @@ const StyledPlatformCards = styled(motion.div)`
     &:hover {
       color: #fff;
       background: var(--color-primary);
+    }
+
+    @media screen and (max-width: 68.75em) {
+      font-size: 0.8rem;
     }
   }
 

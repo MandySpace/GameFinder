@@ -9,7 +9,8 @@ export const searchGames =
     platforms = "",
     genres = "",
     metacritic = "",
-    parent_platforms = ""
+    parent_platforms = "",
+    genre = ""
   ) =>
   async (dispatch) => {
     dispatch({ type: "LOADING_SEARCH_GAMES" });
@@ -21,7 +22,8 @@ export const searchGames =
         platforms,
         genres,
         metacritic,
-        parent_platforms
+        parent_platforms,
+        genre
       )
     );
 

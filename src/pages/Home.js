@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import PlatformCards from "../components/PlatformCards";
 import Spinner from "../components/Spinner";
 import Footer from "../components/Footer";
+import GenreHome from "../components/GenresHome";
+import { fadeAnim } from "../animations";
 
 function Home() {
   const location = useLocation();
@@ -50,7 +52,6 @@ function Home() {
     let opacityTimeout;
     const headerInterval = setInterval(() => {
       if (i.current > 4) i.current = 0;
-
       headerRef.current.style.opacity = 0;
       slideTimeout = setTimeout(() => {
         firstSlideRef.current.style.marginLeft = `${i.current * -100}%`;
@@ -81,9 +82,9 @@ function Home() {
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <Spinner variants={fadeAnim} initial="hidden" animate="show" />
       ) : (
-        <>
+        <motion.div variants={fadeAnim} initial="hidden" animate="show">
           <Header>
             <div className="slider" ref={headerRef}>
               <div className="slides first" ref={firstSlideRef}>
@@ -159,11 +160,12 @@ function Home() {
                 </GamesContainer>
               </MainContiner>
             ))}
-            <PlatformCards />
             {showDetail && <GameDetail />}
           </GameList>
+          <PlatformCards />
+          <GenreHome />
           <Footer />
-        </>
+        </motion.div>
       )}
     </>
   );
@@ -172,6 +174,12 @@ function Home() {
 const Header = styled(motion.div)`
   height: 60rem;
   background: #000;
+  margin-bottom: 5rem;
+
+  @media screen and (max-width: 53.125em) {
+    height: 50rem;
+    margin-bottom: 2rem;
+  }
 
   .slider {
     display: flex;
@@ -188,6 +196,10 @@ const Header = styled(motion.div)`
       width: 100%;
       object-fit: cover;
       object-position: center;
+
+      @media screen and (max-width: 53.125em) {
+        height: 50rem;
+      }
     }
   }
 `;
@@ -197,6 +209,15 @@ const GameList = styled(motion.div)`
   width: 90%;
   max-width: 120rem;
   margin: 0 auto;
+
+  @media screen and (max-width: 40.625em) {
+    width: 100%;
+    padding: 0 5rem;
+  }
+
+  @media screen and (max-width: 31.25em) {
+    padding: 0 3rem;
+  }
 
   .header {
     display: flex;
@@ -222,8 +243,13 @@ const GameList = styled(motion.div)`
 `;
 
 const MainContiner = styled(motion.div)`
+  margin: 2.5rem 0;
   padding: 1rem 0;
   position: relative;
+
+  @media screen and (max-width: 53.125em) {
+    margin: 0;
+  }
 `;
 
 const GamesContainer = styled(motion.div)`
