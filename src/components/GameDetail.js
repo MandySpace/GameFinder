@@ -852,42 +852,24 @@ const Gallery = styled(motion.div)`
     }
 
     @media screen and (max-width: 53.125em) {
-      transform: scale(0.6);
+      transform: scale(0.7);
       top: 83%;
 
       &:hover {
-        transform: scale(0.62);
+        transform: scale(0.72);
       }
 
       &:active {
-        transform: scale(0.58);
+        transform: scale(0.68);
       }
     }
 
     @media screen and (max-width: 40.625em) {
-      transform: scale(0.5);
       top: 81%;
-
-      &:hover {
-        transform: scale(0.52);
-      }
-
-      &:active {
-        transform: scale(0.48);
-      }
     }
 
     @media screen and (max-width: 31.25em) {
-      transform: scale(0.4);
-      top: 80%;
-
-      &:hover {
-        transform: scale(0.42);
-      }
-
-      &:active {
-        transform: scale(0.38);
-      }
+      top: 78%;
     }
   }
   .left {

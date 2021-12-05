@@ -181,6 +181,10 @@ const Header = styled(motion.div)`
     margin-bottom: 2rem;
   }
 
+  @media screen and (max-width: 31.25em) {
+    height: 35rem;
+  }
+
   .slider {
     display: flex;
     overflow-x: hidden;
@@ -199,6 +203,9 @@ const Header = styled(motion.div)`
 
       @media screen and (max-width: 53.125em) {
         height: 45rem;
+      }
+      @media screen and (max-width: 31.25em) {
+        height: 35rem;
       }
     }
   }
