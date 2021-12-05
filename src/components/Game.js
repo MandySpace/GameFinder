@@ -36,7 +36,12 @@ function Game({ name, img, genres, id, metacritic }) {
         <div className="flex">
           <div className="left">
             <h3>{name}</h3>
-            <p>{genres.map((genre) => genre.name).join(", ")}</p>
+            <p>
+              {genres
+                .slice(0, 3)
+                .map((genre) => genre.name)
+                .join(", ")}
+            </p>
           </div>
           {metacritic && (
             <div className="right">
@@ -82,8 +87,13 @@ const StyledGame = styled(motion.div)`
   }
 
   .img-cont {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    -webkit-overflow-x: hidden;
+    -webkit-overflow-y: hidden;
     border-radius: 8px;
+    position: relative;
+    z-index: 10;
   }
 
   .flex {
