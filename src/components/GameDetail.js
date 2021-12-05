@@ -119,7 +119,11 @@ function GameDetail() {
           </div>
 
           <Media>
-            <img src={detail.background_image} alt="Game cover" />
+            <img
+              src={detail.background_image}
+              alt="Game cover"
+              className="main-img"
+            />
 
             <Stats>
               <h3>{detail.name}</h3>
@@ -129,17 +133,17 @@ function GameDetail() {
                   .join(", ")}
               </p>
             </Stats>
-          </Media>
 
-          <Platforms>
-            {detail.parent_platforms?.map((data) => (
-              <img
-                key={data.platform.id}
-                src={platformNameToSvg(data.platform.name)}
-                alt="platforms"
-              ></img>
-            ))}
-          </Platforms>
+            <Platforms>
+              {detail.parent_platforms?.map((data) => (
+                <img
+                  key={data.platform.id}
+                  src={platformNameToSvg(data.platform.name)}
+                  alt="platforms"
+                ></img>
+              ))}
+            </Platforms>
+          </Media>
 
           <RatingContainer>
             <div className="ratings">
@@ -524,42 +528,32 @@ const Platforms = styled(motion.div)`
   width: min-content;
   margin-left: auto;
   padding: 0.5rem 1rem;
+  background: #ffffffa9;
+
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 1rem;
-  background: #ffffffa9;
-  margin-top: -3.5rem;
-  position: relative;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
   z-index: 1000;
 
   img {
     width: 36px;
   }
 
-  @media screen and (max-width: 68.75em) {
-    margin-top: -4.1rem;
-  }
-
   @media screen and (max-width: 53.125em) {
-    margin-top: -3.2rem;
-
     img {
       width: 20px;
-    }
-  }
-
-  @media screen and (max-width: 40.625em) {
-    margin-top: -2.8rem;
-
-    img {
-      width: 10px;
     }
   }
 `;
 
 const Media = styled(motion.div)`
   position: relative;
-  img {
+  .main-img {
     width: 100%;
     height: 40rem;
     object-fit: cover;
