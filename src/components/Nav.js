@@ -67,7 +67,9 @@ function Nav({ darkTheme, setDarkTheme }) {
             </Link>
             <Link
               to="/latest"
-              onClick={() => dispatch(latestGames("", 1, "", "", "", "", 1, 1))}
+              onClick={() =>
+                dispatch(latestGames("", 1, "", "", "", "", 2, 20))
+              }
             >
               <p>This Month</p>
             </Link>
@@ -223,6 +225,7 @@ const StyledNav = styled.nav`
     display: flex;
     align-items: center;
     padding-bottom: 0.4rem;
+    cursor: pointer;
 
     @media screen and (max-width: 53.125em) {
       img {
@@ -294,7 +297,7 @@ const StyledNav = styled.nav`
   .drop {
     display: none;
     position: absolute;
-    top: 65px;
+    top: 100%;
     left: 0;
     width: 100%;
     border: 1px solid #cccccc;

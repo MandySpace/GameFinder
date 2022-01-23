@@ -86,6 +86,7 @@ function Home() {
       ) : (
         <motion.div variants={fadeAnim} initial="hidden" animate="show">
           <Header>
+            {/* <h1>Discover latest games</h1> */}
             <div className="slider" ref={headerRef}>
               <div className="slides first" ref={firstSlideRef}>
                 <img
@@ -175,6 +176,7 @@ const Header = styled(motion.div)`
   height: 60rem;
   background: #000;
   margin-bottom: 5rem;
+  position: relative;
 
   @media screen and (max-width: 53.125em) {
     height: 45rem;
@@ -184,6 +186,22 @@ const Header = styled(motion.div)`
   @media screen and (max-width: 31.25em) {
     height: 35rem;
   }
+
+  @media screen and (min-width: 62.5em) {
+    height: calc(100vh - 65px);
+  }
+
+  /* h1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6rem;
+    background: var(--color-light-body);
+    color: var(--color-light-font);
+    z-index: 2;
+    opacity: 0.5;
+  } */
 
   .slider {
     display: flex;
@@ -206,6 +224,10 @@ const Header = styled(motion.div)`
       }
       @media screen and (max-width: 31.25em) {
         height: 35rem;
+      }
+
+      @media screen and (min-width: 62.5em) {
+        height: calc(100vh - 65px);
       }
     }
   }

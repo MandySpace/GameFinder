@@ -170,6 +170,7 @@ const StyledFilter = styled.div`
   flex-basis: 15em;
   border-right: 1px solid #cccccc9b;
   position: relative;
+  /* z-index: 100000; */
 
   button {
     position: absolute;

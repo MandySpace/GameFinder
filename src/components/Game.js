@@ -93,7 +93,7 @@ const StyledGame = styled(motion.div)`
     -webkit-overflow-y: hidden;
     border-radius: 8px;
     position: relative;
-    z-index: 10;
+    /* z-index: 10; */
   }
 
   .flex {
@@ -105,10 +105,11 @@ const StyledGame = styled(motion.div)`
   }
 
   .metacritic {
-    color: var(--color-primary);
+    color: #fff;
+    background-image: linear-gradient(to bottom right, #6397d8, #4486d8);
     font-weight: 500;
-    padding: 0 0.1rem;
-    border: 1px solid var(--color-primary);
+    padding: 0.2rem 0.3rem;
+    /* border: 1px solid var(--color-primary); */
     border-radius: 3px;
   }
 

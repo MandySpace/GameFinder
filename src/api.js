@@ -12,6 +12,8 @@ const currentDate = () =>
     .map((ele) => ele.padStart(2, "0"))
     .join("-");
 
+console.log(currentDate());
+
 //Later Date a represents year/month/date b represents offset of date in future or past
 const upcomingGamesDate = (a, b) => {
   const upcomingDate = currentDate().split("-");
@@ -36,10 +38,7 @@ export const UPCOMING_GAMES_URL = () =>
   )}&page_size=14`;
 
 export const NEW_GAMES_URL = () =>
-  `${BASE_URL}${GAMES}${API_KEY}&dates=${newGamesDate(
-    1,
-    2
-  )},${currentDate()}&page_size=14`;
+  `${BASE_URL}${GAMES}${API_KEY}&dates=2020-11-01,${currentDate()}&page_size=14`;
 
 export const GAME_DETAIL_URL = (id) => `${BASE_URL}${GAMES}/${id}${API_KEY}`;
 
