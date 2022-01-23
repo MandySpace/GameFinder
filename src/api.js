@@ -76,10 +76,9 @@ export const ALL_LATEST_GAMES = (
   a,
   b
 ) =>
-  `${BASE_URL}${GAMES}${API_KEY}&dates=${newGamesDate(
-    a,
-    b
-  )},${currentDate()}&search=${searchQuery}&page=${page}${
+  `${BASE_URL}${GAMES}${API_KEY}&dates=${
+    a ? `${newGamesDate(a, b)},${currentDate()}` : `2020-11-01,${currentDate()}`
+  }&search=${searchQuery}&page=${page}${
     sortBy !== "" ? `&ordering=${sortBy}` : ""
   }${platforms !== "" ? `&platforms=${platforms}` : ""}${
     genres !== "" ? `&genres=${genres}` : ""

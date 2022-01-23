@@ -9,8 +9,8 @@ export const latestGames =
     platforms = "",
     genres = "",
     metacritic = "",
-    a = 1,
-    b = 2
+    a,
+    b
   ) =>
   async (dispatch) => {
     dispatch({
