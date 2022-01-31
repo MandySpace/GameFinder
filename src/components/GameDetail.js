@@ -632,7 +632,8 @@ const Series = styled.div`
 const Table = styled.div`
   display: flex;
   justify-content: center;
-  margin: 10rem auto;
+  margin: 5rem auto;
+  margin-top: 3rem;
   font-weight: 400;
   padding: 0 5rem;
 

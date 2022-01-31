@@ -12,12 +12,16 @@ const currentDate = () =>
     .map((ele) => ele.padStart(2, "0"))
     .join("-");
 
-console.log(currentDate());
-
 //Later Date a represents year/month/date b represents offset of date in future or past
 const upcomingGamesDate = (a, b) => {
   const upcomingDate = currentDate().split("-");
-  upcomingDate[a] = String(Number(upcomingDate[a]) + b);
+  upcomingDate[a] = String(Number(upcomingDate[a]) + b).padStart(2, "0");
+  if (a === 2) {
+    if (upcomingDate[2] > 29) {
+      upcomingDate[1] = String(Number(upcomingDate[1]) + 1).padStart(2, "0");
+      upcomingDate[2] = String(Number(upcomingDate[2]) - 29).padStart(2, "0");
+    }
+  }
   return upcomingDate.join("-");
 };
 
@@ -25,6 +29,7 @@ const upcomingGamesDate = (a, b) => {
 const newGamesDate = (a, b) => {
   const upcomingDate = currentDate().split("-");
   upcomingDate[a] = String(Number(upcomingDate[a]) - b).padStart(2, "0");
+
   return upcomingDate.join("-");
 };
 

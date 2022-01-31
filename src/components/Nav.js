@@ -107,7 +107,7 @@ function Nav({ darkTheme, setDarkTheme }) {
             <Link
               to="/upcoming"
               onClick={() =>
-                dispatch(upcomingGames("", 1, "", "", "", "", 1, 1))
+                dispatch(upcomingGames("", 1, "", "", "", "", 1, 2))
               }
             >
               <p>Next Month</p>
@@ -189,12 +189,12 @@ function Nav({ darkTheme, setDarkTheme }) {
 }
 
 const StyledNav = styled.nav`
-  height: 65px;
+  height: 4.0625rem;
   display: flex;
   justify-content: space-between;
   color: var(--color-light-font);
+  border-bottom: 1px solid #83838339;
   padding: 0rem 2rem;
-  border-bottom: 1px solid #cccccc9b;
   position: relative;
 
   @media screen and (max-width: 53.125em) {
@@ -338,7 +338,7 @@ const Line = styled(motion.div)`
 
 const Logo = styled.img`
   order: 1;
-  width: 60px;
+  width: 3.75rem;
   aspect-ratio: 1;
   object-fit: contain;
   cursor: pointer;
@@ -403,7 +403,7 @@ const Form = styled.form`
     justify-content: center;
     align-items: center;
     color: var(--color-primary);
-    margin-left: -3rem;
+    margin-left: -3.5rem;
 
     @media screen and (max-width: 68.75em) {
       margin-left: -3.5rem;

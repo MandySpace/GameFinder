@@ -66,7 +66,7 @@ function SearchedGames({ darkTheme }) {
             <img
               src={darkTheme ? filter : darkFilter}
               alt="filter icon"
-              class="filter-svg"
+              className="filter-svg"
             />
           </button>
           <Sort

@@ -86,7 +86,14 @@ function Home() {
       ) : (
         <motion.div variants={fadeAnim} initial="hidden" animate="show">
           <Header>
-            {/* <h1>Discover latest games</h1> */}
+            <div className="header-overlay">
+              <h1 className="main-heading">
+                Score<span>.</span>
+              </h1>
+              <h1 className="sub-heading">
+                Your ultimate <span>gaming</span> destination.
+              </h1>
+            </div>
             <div className="slider" ref={headerRef}>
               <div className="slides first" ref={firstSlideRef}>
                 <img
@@ -188,20 +195,51 @@ const Header = styled(motion.div)`
   }
 
   @media screen and (min-width: 62.5em) {
-    height: calc(100vh - 65px);
+    height: calc(100vh - 4.0625rem);
   }
 
-  /* h1 {
+  .header-overlay {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 6rem;
-    background: var(--color-light-body);
-    color: var(--color-light-font);
-    z-index: 2;
-    opacity: 0.5;
-  } */
+    inset: 0;
+    z-index: 10;
+    background: #1d1d1d99;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 62.5em) {
+      display: none;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 8rem;
+      font-weight: 700;
+
+      @media screen and (max-width: 75em) {
+        font-size: 6rem;
+      }
+    }
+
+    .main-heading {
+      span {
+        color: var(--color-primary);
+      }
+    }
+
+    .sub-heading {
+      color: #d4d4d4;
+      font-size: 2rem;
+      font-weight: 100;
+      font-style: italic;
+
+      @media screen and (max-width: 75em) {
+        font-size: 1.5rem;
+      }
+    }
+  }
 
   .slider {
     display: flex;
@@ -227,7 +265,7 @@ const Header = styled(motion.div)`
       }
 
       @media screen and (min-width: 62.5em) {
-        height: calc(100vh - 65px);
+        height: calc(100vh - 4.0625rem);
       }
     }
   }

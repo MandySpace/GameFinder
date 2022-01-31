@@ -90,7 +90,7 @@ const Arrows = styled.div`
   .arrow {
     padding: 0.4rem;
     position: absolute;
-    top: 38%;
+    top: 43%;
     border-radius: 50%;
     background-color: var(--color-primary);
     box-shadow: 0 2px 10px #00000057;
@@ -136,33 +136,25 @@ const Arrows = styled.div`
     }
   }
   .left {
-    left: -1%;
+    left: -2%;
     @media screen and (max-width: 68.75em) {
-      left: -3%;
-    }
-
-    @media screen and (max-width: 31.25em) {
       left: -4%;
     }
 
-    @media screen and (max-width: 25em) {
-      left: -6%;
+    @media screen and (max-width: 31.25em) {
+      left: -5%;
     }
   }
 
   .right {
-    right: -1%;
+    right: -2%;
 
     @media screen and (max-width: 68.75em) {
-      right: -3%;
-    }
-
-    @media screen and (max-width: 31.25em) {
       right: -4%;
     }
 
-    @media screen and (max-width: 25em) {
-      right: -6%;
+    @media screen and (max-width: 31.25em) {
+      right: -5%;
     }
   }
 `;
