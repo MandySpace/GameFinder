@@ -51,27 +51,12 @@ const Genres = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-content: center;
-  justify-items: center;
   gap: 2rem;
   width: 90%;
   max-width: 120rem;
   margin: 0 auto;
   margin-bottom: 10rem;
   padding: 0 5rem;
-
-  /* @media screen and (max-width: 68.75em) {
-    grid-template-columns: repeat(auto-fit, 150px);
-  }
-
-  @media screen and (max-width: 53.125em) {
-    grid-template-columns: repeat(auto-fit, 125px);
-  }
-
-  @media screen and (max-width: 40.625em) {
-    grid-template-columns: repeat(auto-fit, 100px);
-    width: 100%;
-    padding: 0 3rem;
-  }*/
 
   @media screen and (max-width: 31.25em) {
     grid-template-columns: repeat(3, 1fr);
